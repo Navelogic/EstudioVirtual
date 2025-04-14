@@ -14,5 +14,8 @@ public enum GenreEnum {
     CRIME,
     MUSICAL,
     WESTERN,
-    ANIMATION
+    ANIMATION,
+    BIOGRAPHY,
+    FAMILY,
+    ANTHOLOGY
 }
