@@ -1,5 +1,6 @@
 package com.github.navelogic.api.Model;
 
+import com.github.navelogic.api.Enum.UserRoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,10 @@ public class UserModel {
     private String username;
     private String email;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRoleEnum role;
 
     @CreationTimestamp
     private LocalDate createdAt;
