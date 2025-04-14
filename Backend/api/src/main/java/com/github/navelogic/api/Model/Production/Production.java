@@ -45,12 +45,10 @@ public class Production {
     private LocalDate productionStartDate;
     private LocalDate releaseDate;
 
-    private int qualityScore;
-    private int popularityScore;
-    private int criticScore;
+    private Integer qualityScore;
+    private Integer popularityScore;
+    private Integer criticScore;
 
     private Boolean isAdult = false;
-
-
 
 }

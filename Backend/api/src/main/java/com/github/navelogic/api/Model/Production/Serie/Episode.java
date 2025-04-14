@@ -16,8 +16,8 @@ class Episode {
     private Long id;
 
     private String title;
-    private int episodeNumber;
-    private int durationMinutes;
+    private Integer episodeNumber;
+    private Integer durationMinutes;
 
     @ManyToOne
     @JoinColumn(name = "season_id")
