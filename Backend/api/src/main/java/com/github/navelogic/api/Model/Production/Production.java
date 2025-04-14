@@ -7,6 +7,7 @@ import com.github.navelogic.api.Model.Crew;
 import com.github.navelogic.api.Model.Studio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Production {
 
     @Id

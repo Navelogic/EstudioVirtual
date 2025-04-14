@@ -3,20 +3,20 @@ package com.github.navelogic.api.Model;
 import com.github.navelogic.api.Model.Production.Production;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Studio {
 
     @Id
@@ -62,10 +62,7 @@ public class Studio {
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
     private Set<Production> productions = new HashSet<>();
 
-    /*
     @OneToOne
-    @JoinColumn(name = "user_id")
-    private User owner;
-    */
-
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private UserModel owner;
 }
