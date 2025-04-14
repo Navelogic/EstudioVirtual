@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,29 +27,24 @@ public class Studio {
     private String name;
     private String description;
 
-    private Integer reputation; // 0-100
+    private Integer reputation; // 0-10
     private BigDecimal budget;
-    private Integer studioSize; // 1-5 estrelas representando o tamanho/capacidade
+    private Integer studioSize; // 100
 
     // Propriedades do estúdio
     private Integer maxSimultaneousProductions;
+
+    @CreationTimestamp
     private LocalDate foundingDate;
 
     private Integer studioLevel = 1;
     private Integer experiencePoints = 0;
     private Integer requiredXpForNextLevel = 1000;
 
-    private Integer equipmentQuality = 50; // 0-100
-    private Integer staffQuality = 50; // 0-100
-    private Integer marketingCapability = 50; // 0-100
-    private Integer distributionNetwork = 50; // 0-100
-
-    // Especialidades do estúdio (bonificações para certos tipos de produções)
-    private boolean specializedInAction = false;
-    private boolean specializedInDrama = false;
-    private boolean specializedInComedy = false;
-    private boolean specializedInHorror = false;
-    private boolean specializedInScifi = false;
+    private Integer equipmentQuality = 1; // 0-100
+    private Integer staffQuality = 1; // 0-100
+    private Integer marketingCapability = 1; // 0-100
+    private Integer distributionNetwork = 1; // 0-100
 
     // Propriedades financeiras
     private BigDecimal totalRevenue = BigDecimal.ZERO;

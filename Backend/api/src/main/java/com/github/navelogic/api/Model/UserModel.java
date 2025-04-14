@@ -37,5 +37,5 @@ public class UserModel {
     private LocalDate updatedAt;
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Studio studio;
+    private Studio studio; 
 }
