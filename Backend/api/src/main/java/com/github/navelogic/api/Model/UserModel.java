@@ -38,7 +38,4 @@ public class UserModel {
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private Studio studio;
-
-
-
 }

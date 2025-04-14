@@ -33,17 +33,15 @@ public class Studio {
     // Propriedades do estúdio
     private Integer maxSimultaneousProductions;
     private LocalDate foundingDate;
-    private String headquarters;
-    private String logoUrl;
 
-    private int studioLevel = 1;
-    private int experiencePoints = 0;
-    private int requiredXpForNextLevel = 1000;
+    private Integer studioLevel = 1;
+    private Integer experiencePoints = 0;
+    private Integer requiredXpForNextLevel = 1000;
 
-    private int equipmentQuality = 50; // 0-100
-    private int staffQuality = 50; // 0-100
-    private int marketingCapability = 50; // 0-100
-    private int distributionNetwork = 50; // 0-100
+    private Integer equipmentQuality = 50; // 0-100
+    private Integer staffQuality = 50; // 0-100
+    private Integer marketingCapability = 50; // 0-100
+    private Integer distributionNetwork = 50; // 0-100
 
     // Especialidades do estúdio (bonificações para certos tipos de produções)
     private boolean specializedInAction = false;
