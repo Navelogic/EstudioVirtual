@@ -3,6 +3,8 @@ package com.github.navelogic.api.Model.Production;
 import com.github.navelogic.api.Enum.AgeRatingEnum;
 import com.github.navelogic.api.Enum.GenreEnum;
 import com.github.navelogic.api.Enum.ProductionStatusEnum;
+import com.github.navelogic.api.Model.Crew;
+import com.github.navelogic.api.Model.Studio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,6 +39,18 @@ public class Production {
 
     @Enumerated(EnumType.STRING)
     private ProductionStatusEnum productionStatus = ProductionStatusEnum.CONCEPT;
+
+    @ManyToOne
+    @JoinColumn(name = "studio_id")
+    private Studio studio;
+
+    @ManyToMany
+    @JoinTable(
+            name = "production_crew",
+            joinColumns = @JoinColumn(name = "production_id"),
+            inverseJoinColumns = @JoinColumn(name = "crew_id")
+    )
+    private Set<Crew> crew = new HashSet<>();
 
     private BigDecimal budget;
     private BigDecimal marketingBudget;
