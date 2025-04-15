@@ -36,7 +36,7 @@ public class SecurityConfig {
                     auth.requestMatchers("/auth").permitAll()
                             .requestMatchers("/auth/").permitAll()
                             .requestMatchers("/auth/login").permitAll()
-                            .requestMatchers("/auth/register").permitAll()
+                            .requestMatchers("/auth/create").permitAll()
                             .requestMatchers(SWAGGER_WHITELIST).permitAll();
 
                     auth.anyRequest().authenticated();
