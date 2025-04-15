@@ -39,6 +39,14 @@ O **Estúdio Virtual** é um simulador onde você gerencia uma produtora audiovi
 
 ## 🧠 UML - Modelo de Classes
 
+O diagrama UML do modelo de classes está disponível para consulta e comentários:
+
+- 📄 **Versão em PDF**: localizada na pasta de documentação do projeto.
+- 🌐 **Versão interativa**: disponível para comentários através do Lucidchart:  
+  [Acessar diagrama UML no Lucidchart](https://lucid.app/lucidchart/05b180dd-f76a-4e27-a918-f18135d6c1ee/edit?viewport_loc=1212%2C185%2C2505%2C1087%2CHWEp-vi-RSFO&invitationId=inv_2611ea06-2afc-4b78-b932-d1f8769cc073)
+
+> Sinta-se à vontade para deixar sugestões ou observações diretamente no diagrama.
+
 <img src="https://github.com/Navelogic/EstudioVirtual/blob/main/Docs/UML%2015%2004%202025.png" alt="Classe UML" />
 
 ---
