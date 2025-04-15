@@ -2,6 +2,7 @@ package com.github.navelogic.api.Service;
 
 import com.github.navelogic.api.DTO.UserCreationDTO;
 import com.github.navelogic.api.DTO.UserResponseDTO;
+import com.github.navelogic.api.Enum.UserRoleEnum;
 import com.github.navelogic.api.Model.UserModel;
 import com.github.navelogic.api.Repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -23,10 +24,16 @@ public class UserService {
                     throw new RuntimeException("Email já cadastrado");
                 });
 
+        this.userRepository.findByUsername(userDTO.getUsername())
+                .ifPresent((user) -> {
+                    throw new RuntimeException("Username já cadastrado");
+                });
+
         var userModel = new UserModel();
         userModel.setUsername(userDTO.getUsername());
         userModel.setEmail(userDTO.getEmail());
         userModel.setPassword(this.passwordEncoder.encode(userDTO.getPassword()));
+        userModel.setRole(UserRoleEnum.ROLE_USER);
 
         var savedUser = this.userRepository.save(userModel);
 
