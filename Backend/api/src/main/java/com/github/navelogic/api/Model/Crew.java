@@ -29,27 +29,23 @@ public class Crew {
     @Enumerated(EnumType.STRING)
     private CrewRoleEnum role;
 
-    private int fame;
-    private int talent;
+    private Integer fame;
+    private Integer talent;
 
     private BigDecimal baseSalary;
 
-    private boolean isAvailable;
+    private Boolean isAvailable;
 
-    @OneToMany(mappedBy = "crew", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Contract> contracts = new HashSet<>();
+    private Integer fadiga; // 0-100
+    private Integer experience;    // 0-100
+    private Integer creativity;    // 0-100
+    private Integer leadership;    // 0-100
+    private Integer reliability;   // 0-100
 
-    @ManyToMany(mappedBy = "crew")
-    private Set<Production> productions = new HashSet<>();
-
-    // Atributos específicos que afetam a qualidade das produções
-    private int experience;    // 0-100
-    private int creativity;    // 0-100
-    private int leadership;    // 0-100
-    private int reliability;   // 0-100
-
-    // Especialidades do membro (bonificações para certos gêneros)
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private Set<GenreEnum> specialties = new HashSet<>();
+
+    @OneToMany(mappedBy = "crew", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Contract> contracts = new HashSet<>();
 }
