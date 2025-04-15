@@ -3,6 +3,7 @@ package com.github.navelogic.api.Service;
 import com.github.navelogic.api.DTO.UserCreationDTO;
 import com.github.navelogic.api.DTO.UserResponseDTO;
 import com.github.navelogic.api.Enum.UserRoleEnum;
+import com.github.navelogic.api.Exception.ValidationException;
 import com.github.navelogic.api.Model.UserModel;
 import com.github.navelogic.api.Repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -19,15 +20,7 @@ public class UserService {
 
     @Transactional
     public UserResponseDTO createUser(UserCreationDTO userDTO){
-        this.userRepository.findByEmail(userDTO.getEmail())
-                .ifPresent((user) -> {
-                    throw new RuntimeException("Email já cadastrado");
-                });
-
-        this.userRepository.findByUsername(userDTO.getUsername())
-                .ifPresent((user) -> {
-                    throw new RuntimeException("Username já cadastrado");
-                });
+        validateNewUser(userDTO);
 
         var userModel = new UserModel();
         userModel.setUsername(userDTO.getUsername());
@@ -42,6 +35,18 @@ public class UserService {
                 .email(savedUser.getEmail())
                 .role(formatRole(savedUser.getRole().name()))
                 .build();
+    }
+
+    private void validateNewUser(UserCreationDTO userDTO) {
+        userRepository.findByEmail(userDTO.getEmail())
+                .ifPresent(user -> {
+                    throw new ValidationException("Email já cadastrado");
+                });
+
+        userRepository.findByUsername(userDTO.getUsername())
+                .ifPresent(user -> {
+                    throw new ValidationException("Username já cadastrado");
+                });
     }
 
     private String formatRole(String role) {
