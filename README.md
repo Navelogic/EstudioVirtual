@@ -39,7 +39,7 @@ O **Estúdio Virtual** é um simulador onde você gerencia uma produtora audiovi
 
 ## 🧠 UML - Modelo de Classes
 
-<img src="https://github.com/user-attachments/assets/a2a0da00-86cc-424a-be0d-2c3dddde9e39" alt="Classe UML" />
+<img src="https://github.com/Navelogic/EstudioVirtual/blob/main/Docs/UML%2015%2004%202025.png" alt="Classe UML" />
 
 ---
 
