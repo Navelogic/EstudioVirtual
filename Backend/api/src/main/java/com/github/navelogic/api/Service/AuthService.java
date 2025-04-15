@@ -58,7 +58,7 @@ public class AuthService {
 
     private AuthResponseDTO createAuthResponse(String token, UserRoleEnum role) {
         return AuthResponseDTO.builder()
-                .acessToken(token)
+                .accessToken(token)
                 .role(String.valueOf(role))
                 .build();
     }
