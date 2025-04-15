@@ -1,6 +1,7 @@
 package com.github.navelogic.api.Model;
 
 import com.github.navelogic.api.Enum.ContractTypeEnum;
+import com.github.navelogic.api.Model.Production.Production;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,10 @@ public class Contract {
     @ManyToOne
     @JoinColumn(name = "studio_id")
     private Studio studio;
+
+    @ManyToOne
+    @JoinColumn(name = "production_id")
+    private Production production;
 
     private LocalDate startDate;
     private LocalDate endDate;
