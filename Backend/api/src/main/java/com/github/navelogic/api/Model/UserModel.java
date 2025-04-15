@@ -2,6 +2,8 @@ package com.github.navelogic.api.Model;
 
 import com.github.navelogic.api.Enum.UserRoleEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,8 +24,14 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(unique = true)
     private String username;
+
+    @Column(unique = true)
+    @Email
     private String email;
+
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
