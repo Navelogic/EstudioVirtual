@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class AuthResponseDTO {
 
     @Schema(description = "Token de acesso gerado para o usuário", example = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c")
-    private String acessToken;
+    private String accessToken;
 
     @Schema(description = "Papel do usuário no sistema", example = "ROLE_USER")
     private String role;
