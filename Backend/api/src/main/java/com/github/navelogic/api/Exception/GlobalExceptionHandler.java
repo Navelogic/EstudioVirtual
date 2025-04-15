@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 @ControllerAdvice
@@ -30,6 +31,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErroResponseDTO> handleValidationException(ValidationException ex) {
+        return ResponseEntity.badRequest().body(
+                ErroResponseDTO.builder()
+                        .message(ex.getMessage())
+                        .status(400)
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErroResponseDTO> handleAuthenticationException(AuthenticationException ex) {
         return ResponseEntity.badRequest().body(
                 ErroResponseDTO.builder()
                         .message(ex.getMessage())
