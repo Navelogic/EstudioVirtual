@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -34,6 +36,17 @@ public class UserService {
                 .username(savedUser.getUsername())
                 .email(savedUser.getEmail())
                 .role(formatRole(savedUser.getRole().name()))
+                .build();
+    }
+
+    public UserResponseDTO findUserById(UUID id) {
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new ValidationException("Usuário não encontrado"));
+
+        return UserResponseDTO.builder()
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .role(formatRole(user.getRole().name()))
                 .build();
     }
 
