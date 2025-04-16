@@ -1,5 +1,7 @@
 package com.github.navelogic.api.Security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.navelogic.api.DTO.ErroResponseDTO;
 import com.github.navelogic.api.Provider.JWTProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,28 +24,53 @@ import java.util.Optional;
 public class SecurityFilter extends OncePerRequestFilter {
 
     private final JWTProvider jwtProvider;
+    private final ObjectMapper objectMapper;
 
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         SecurityContextHolder.clearContext();
-        Optional.ofNullable(request.getHeader("Authorization"))
-                .flatMap(jwtProvider::validateToken)
-                .ifPresent(subject -> {
-                    request.setAttribute("user_id", subject);
 
-                    Optional<String> roleOptional = jwtProvider.getRoleFromToken(request.getHeader("Authorization"));
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null){
+            try {
+                Optional<String> subject = jwtProvider.validateToken(authHeader);
+                if (subject.isPresent()) {
+                    request.setAttribute("user_id", subject.get());
 
+                    Optional<String> roleOptional = jwtProvider.getRoleFromToken(authHeader);
                     List<SimpleGrantedAuthority> authorities = roleOptional
                             .map(role -> Collections.singletonList(new SimpleGrantedAuthority(role)))
                             .orElse(Collections.emptyList());
 
                     UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(subject, null, authorities);
+                            new UsernamePasswordAuthenticationToken(subject.get(), null, authorities);
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-                });
+                    filterChain.doFilter(request, response);
+                    return;
+                }
+                sendUnauthorizedError(response);
+                return;
+            } catch (Exception e) {
+                sendUnauthorizedError(response);
+                return;
+            }
+        }
 
         filterChain.doFilter(request, response);
+    }
+
+    private void sendUnauthorizedError(HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+
+        var erro = ErroResponseDTO.builder()
+                .message("Token inválido ou expirado")
+                .details(List.of())
+                .status(401)
+                .build();
+
+        objectMapper.writeValue(response.getWriter(), erro);
     }
 }
