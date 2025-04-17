@@ -1,5 +1,8 @@
 package com.github.navelogic.api.Controller;
 
+import com.github.navelogic.api.DTO.UserCreationDTO;
+import com.github.navelogic.api.DTO.UserUpdateDTO;
+import com.github.navelogic.api.DTO.UserUpdatePasswordDTO;
 import com.github.navelogic.api.Service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,6 +41,21 @@ public class UserModelController {
     public ResponseEntity<Object> deleteUser(@PathVariable UUID id, HttpServletRequest request) {
         userService.deleteUserById(id);
         return ResponseEntity.ok("Usuário deletado com sucesso");
+    }
+
+    @PutMapping("/update")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Object> updateUser(@RequestBody UserUpdateDTO userUpdateDTO, HttpServletRequest request) {
+        String userId = (String) request.getAttribute("user_id");
+        return ResponseEntity.ok(userService.updateUser(UUID.fromString(userId), userUpdateDTO));
+    }
+
+    @PutMapping("/password")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Object> updatePassword(@RequestBody UserUpdatePasswordDTO userUpdatePasswordDTO, HttpServletRequest request) {
+        String userId = (String) request.getAttribute("user_id");
+        return ResponseEntity.ok(userService.updateUserPassword(UUID.fromString(userId), userUpdatePasswordDTO));
+
     }
 
 }
