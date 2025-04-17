@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -39,8 +40,8 @@ public class UserService {
                 .build();
     }
 
-    public UserResponseDTO findUserById(UUID id) {
-        var user = userRepository.findById(id)
+    public UserResponseDTO userProfile(UUID id) {
+        var user = findById(id)
                 .orElseThrow(() -> new ValidationException("Usuário não encontrado"));
 
         return UserResponseDTO.builder()
@@ -48,6 +49,27 @@ public class UserService {
                 .email(user.getEmail())
                 .role(formatRole(user.getRole().name()))
                 .build();
+    }
+
+    @Transactional
+    public void deleteUserById(UUID id) {
+        var user = findById(id)
+                .orElseThrow(() -> new ValidationException("Usuário não encontrado"));
+
+        userRepository.delete(user);
+    }
+
+    @Transactional
+    public void desactivateUser(UUID id){
+        var user = findById(id)
+                .orElseThrow(() -> new ValidationException("Usuário não encontrado"));
+
+        user.setIsActive(false);
+        userRepository.save(user);
+    }
+
+    private Optional<UserModel> findById(UUID id) {
+        return userRepository.findById(id);
     }
 
     private void validateNewUser(UserCreationDTO userDTO) {

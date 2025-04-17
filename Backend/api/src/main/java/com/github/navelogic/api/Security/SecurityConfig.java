@@ -39,6 +39,8 @@ public class SecurityConfig {
                             .requestMatchers("/auth/create").permitAll()
                             .requestMatchers(SWAGGER_WHITELIST).permitAll();
 
+                    auth.requestMatchers("/api/user/delete/**").hasAnyRole("ADMIN");
+
                     auth.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);

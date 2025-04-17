@@ -38,6 +38,8 @@ public class UserModel {
     @Column(nullable = false)
     private UserRoleEnum role;
 
+    private Boolean isActive = true;
+
     @CreationTimestamp
     private LocalDate createdAt;
 
