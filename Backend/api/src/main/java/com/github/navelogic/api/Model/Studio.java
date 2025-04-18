@@ -50,6 +50,8 @@ public class Studio {
     @UpdateTimestamp
     private LocalDate updatedAt;
 
+    private Boolean isActive = true;
+
     // Relações com outras entidades
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
     private Set<Production> productions = new HashSet<>();
