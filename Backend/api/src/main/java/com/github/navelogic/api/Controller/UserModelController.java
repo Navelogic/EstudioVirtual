@@ -1,8 +1,7 @@
 package com.github.navelogic.api.Controller;
 
-import com.github.navelogic.api.DTO.UserCreationDTO;
-import com.github.navelogic.api.DTO.UserUpdateDTO;
-import com.github.navelogic.api.DTO.UserUpdatePasswordDTO;
+import com.github.navelogic.api.DTO.User.UserUpdateDTO;
+import com.github.navelogic.api.DTO.User.UserUpdatePasswordDTO;
 import com.github.navelogic.api.Service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;

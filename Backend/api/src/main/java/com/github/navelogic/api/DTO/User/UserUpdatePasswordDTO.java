@@ -1,4 +1,4 @@
-package com.github.navelogic.api.DTO;
+package com.github.navelogic.api.DTO.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

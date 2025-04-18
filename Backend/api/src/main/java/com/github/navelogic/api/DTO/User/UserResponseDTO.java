@@ -1,4 +1,4 @@
-package com.github.navelogic.api.DTO;
+package com.github.navelogic.api.DTO.User;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;

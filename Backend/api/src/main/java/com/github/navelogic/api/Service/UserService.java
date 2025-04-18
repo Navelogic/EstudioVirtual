@@ -1,9 +1,9 @@
 package com.github.navelogic.api.Service;
 
-import com.github.navelogic.api.DTO.UserCreationDTO;
-import com.github.navelogic.api.DTO.UserResponseDTO;
-import com.github.navelogic.api.DTO.UserUpdateDTO;
-import com.github.navelogic.api.DTO.UserUpdatePasswordDTO;
+import com.github.navelogic.api.DTO.User.UserCreationDTO;
+import com.github.navelogic.api.DTO.User.UserResponseDTO;
+import com.github.navelogic.api.DTO.User.UserUpdateDTO;
+import com.github.navelogic.api.DTO.User.UserUpdatePasswordDTO;
 import com.github.navelogic.api.Enum.UserRoleEnum;
 import com.github.navelogic.api.Exception.ValidationException;
 import com.github.navelogic.api.Model.UserModel;
