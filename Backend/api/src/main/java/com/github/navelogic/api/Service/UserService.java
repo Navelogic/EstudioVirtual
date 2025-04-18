@@ -114,7 +114,7 @@ public class UserService {
                 .build();
     }
 
-    private Optional<UserModel> findById(UUID id) {
+    public Optional<UserModel> findById(UUID id) {
         return userRepository.findById(id);
     }
 
