@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface StudioRepository extends JpaRepository<Studio, Long> {
-    Optional<UserModel> findByOwnerId(UUID userId);
+    Optional<Studio> findByOwnerId(UUID userId);
 }
