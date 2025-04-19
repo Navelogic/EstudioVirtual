@@ -30,5 +30,6 @@ public class StudioResponseDTO {
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private Boolean isActive;
+    private String categoryByAvailableCapital;
     private UserResponseDTO owner;
 }
