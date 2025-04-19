@@ -3,6 +3,7 @@ package com.github.navelogic.api.Exception;
 import com.github.navelogic.api.DTO.ApiResponseDTO;
 import com.github.navelogic.api.DTO.ErroResponseDTO;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
