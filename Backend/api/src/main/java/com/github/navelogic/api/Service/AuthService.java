@@ -1,7 +1,7 @@
 package com.github.navelogic.api.Service;
 
-import com.github.navelogic.api.DTO.AuthDTO;
-import com.github.navelogic.api.DTO.AuthResponseDTO;
+import com.github.navelogic.api.DTO.User.AuthDTO;
+import com.github.navelogic.api.DTO.User.AuthResponseDTO;
 import com.github.navelogic.api.Enum.UserRoleEnum;
 import com.github.navelogic.api.Model.UserModel;
 import com.github.navelogic.api.Provider.JWTProvider;

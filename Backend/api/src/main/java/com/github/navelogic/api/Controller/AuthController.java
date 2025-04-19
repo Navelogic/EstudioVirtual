@@ -1,6 +1,10 @@
 package com.github.navelogic.api.Controller;
 
 import com.github.navelogic.api.DTO.*;
+import com.github.navelogic.api.DTO.User.AuthDTO;
+import com.github.navelogic.api.DTO.User.AuthResponseDTO;
+import com.github.navelogic.api.DTO.User.UserCreationDTO;
+import com.github.navelogic.api.DTO.User.UserResponseDTO;
 import com.github.navelogic.api.Service.AuthService;
 import com.github.navelogic.api.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;

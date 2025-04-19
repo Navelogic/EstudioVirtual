@@ -1,7 +1,6 @@
-package com.github.navelogic.api.DTO;
+package com.github.navelogic.api.DTO.User;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
