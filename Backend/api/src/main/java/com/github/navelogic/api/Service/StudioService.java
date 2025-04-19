@@ -16,6 +16,7 @@ import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -172,7 +173,61 @@ public class StudioService {
                 .createdAt(studio.getCreatedAt())
                 .updatedAt(studio.getUpdatedAt())
                 .isActive(studio.getIsActive())
+                .categoryByAvailableCapital(categoryByAvailableCapital(studio.getBudget()))
                 .owner(userResponse).build();
+    }
+
+    private String categoryByAvailableCapital(BigDecimal budget) {
+        if (budget.compareTo(new BigDecimal("750000")) < 0) return "Estúdio Semente";
+        if (budget.compareTo(new BigDecimal("1000000")) < 0) return "Estúdio Garagem";
+        if (budget.compareTo(new BigDecimal("1250000")) < 0) return "Microestúdio Independente";
+        if (budget.compareTo(new BigDecimal("1500000")) < 0) return "Estúdio Artesanal";
+        if (budget.compareTo(new BigDecimal("2000000")) < 0) return "Estúdio de Curta-metragem";
+        if (budget.compareTo(new BigDecimal("2500000")) < 0) return "Estúdio Indie Iniciante";
+        if (budget.compareTo(new BigDecimal("3000000")) < 0) return "Estúdio Autoral";
+        if (budget.compareTo(new BigDecimal("3500000")) < 0) return "Estúdio Emergente";
+        if (budget.compareTo(new BigDecimal("4000000")) < 0) return "Pequeno Estúdio Independente";
+        if (budget.compareTo(new BigDecimal("5000000")) < 0) return "Estúdio Colaborativo";
+        if (budget.compareTo(new BigDecimal("6000000")) < 0) return "Estúdio Indie Estabelecido";
+        if (budget.compareTo(new BigDecimal("7000000")) < 0) return "Estúdio de Nicho";
+        if (budget.compareTo(new BigDecimal("8000000")) < 0) return "Produtora Cinematográfica Local";
+        if (budget.compareTo(new BigDecimal("10000000")) < 0) return "Estúdio Regional";
+        if (budget.compareTo(new BigDecimal("12000000")) < 0) return "Estúdio Indie Consolidado";
+        if (budget.compareTo(new BigDecimal("15000000")) < 0) return "Produtora Profissional";
+        if (budget.compareTo(new BigDecimal("18000000")) < 0) return "Estúdio Setorial";
+        if (budget.compareTo(new BigDecimal("22000000")) < 0) return "Produtora Especializada";
+        if (budget.compareTo(new BigDecimal("25000000")) < 0) return "Estúdio Multiprojeto";
+        if (budget.compareTo(new BigDecimal("30000000")) < 0) return "Estúdio de Arte e Ensaio";
+        if (budget.compareTo(new BigDecimal("35000000")) < 0) return "Estúdio Nacional Emergente";
+        if (budget.compareTo(new BigDecimal("40000000")) < 0) return "Produtora Cinematográfica Comercial";
+        if (budget.compareTo(new BigDecimal("50000000")) < 0) return "Estúdio de Filmes de Mercado";
+        if (budget.compareTo(new BigDecimal("60000000")) < 0) return "Produtora Nacional";
+        if (budget.compareTo(new BigDecimal("75000000")) < 0) return "Estúdio Sólido";
+        if (budget.compareTo(new BigDecimal("90000000")) < 0) return "Estúdio Multicategoria";
+        if (budget.compareTo(new BigDecimal("110000000")) < 0) return "Produtora Cinematográfica Nacional";
+        if (budget.compareTo(new BigDecimal("130000000")) < 0) return "Estúdio de Cinema Nacional";
+        if (budget.compareTo(new BigDecimal("150000000")) < 0) return "Produtora Multiplataforma";
+        if (budget.compareTo(new BigDecimal("180000000")) < 0) return "Grupo Cinematográfico";
+        if (budget.compareTo(new BigDecimal("220000000")) < 0) return "Estúdio Nacional de Referência";
+        if (budget.compareTo(new BigDecimal("270000000")) < 0) return "Produtora Mainstream";
+        if (budget.compareTo(new BigDecimal("320000000")) < 0) return "Grande Estúdio Nacional";
+        if (budget.compareTo(new BigDecimal("380000000")) < 0) return "Companhia Cinematográfica";
+        if (budget.compareTo(new BigDecimal("450000000")) < 0) return "Estúdio Nacional Consolidado";
+        if (budget.compareTo(new BigDecimal("550000000")) < 0) return "Produtora Internacional Emergente";
+        if (budget.compareTo(new BigDecimal("650000000")) < 0) return "Estúdio de Exportação";
+        if (budget.compareTo(new BigDecimal("750000000")) < 0) return "Companhia Cinematográfica Internacional";
+        if (budget.compareTo(new BigDecimal("900000000")) < 0) return "Estúdio de Blockbusters Nacionais";
+        if (budget.compareTo(new BigDecimal("1100000000")) < 0) return "Corporação Cinematográfica Nacional";
+        if (budget.compareTo(new BigDecimal("1400000000")) < 0) return "Estúdio Internacional";
+        if (budget.compareTo(new BigDecimal("1700000000")) < 0) return "Major Regional";
+        if (budget.compareTo(new BigDecimal("2000000000")) < 0) return "Estúdio Multinacional";
+        if (budget.compareTo(new BigDecimal("2500000000")) < 0) return "Conglomerado de Entretenimento";
+        if (budget.compareTo(new BigDecimal("3000000000")) < 0) return "Major Emergente";
+        if (budget.compareTo(new BigDecimal("4000000000")) < 0) return "Major Internacional";
+        if (budget.compareTo(new BigDecimal("5000000000")) < 0) return "Corporação Global de Cinema";
+        if (budget.compareTo(new BigDecimal("7000000000")) < 0) return "Conglomerado Global de Entretenimento";
+        if (budget.compareTo(new BigDecimal("10000000000")) < 0) return "Major Mundial";
+        return "Megacorporação de Entretenimento";
     }
 
 }
