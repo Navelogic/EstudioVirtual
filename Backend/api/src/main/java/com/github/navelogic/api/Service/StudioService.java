@@ -1,17 +1,18 @@
 package com.github.navelogic.api.Service;
 
 import com.github.navelogic.api.DTO.StudioCreationDTO;
+import com.github.navelogic.api.DTO.StudioResponseDTO;
 import com.github.navelogic.api.DTO.StudioUpdateDTO;
 import com.github.navelogic.api.DTO.User.UserResponseDTO;
 import com.github.navelogic.api.Enum.UserRoleEnum;
 import com.github.navelogic.api.Exception.AccessDeniedException;
 import com.github.navelogic.api.Exception.ResourceNotFoundException;
-import com.github.navelogic.api.Exception.ValidationException;
 import com.github.navelogic.api.Model.Studio;
 import com.github.navelogic.api.Model.UserModel;
 import com.github.navelogic.api.Repository.StudioRepository;
 import com.github.navelogic.api.Repository.UserRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,44 +30,32 @@ public class StudioService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Studio createStudio(StudioCreationDTO studioDTO, UUID userId) {
-
-        var user = userService.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com ID: " + userId));
-
-        if (studioRepository.findByOwnerId(userId).isPresent()) {
-            throw new ValidationException("Usuário já possui um estúdio");
-        }
-
-        validateStudioCreation(studioDTO);
-
+    public StudioResponseDTO createStudio(StudioCreationDTO studioDTO, UUID userId){
         var studio = new Studio();
         studio.setName(studioDTO.getName());
         studio.setDescription(studioDTO.getDescription());
-        studio.setOwner(user);
-
-        user.setStudio(studio);
-        userRepository.save(user);
+        studio.setOwner(userService.findById(userId).orElseThrow(() -> new ValidationException("Usuário não encontrado")));
 
         var savedStudio = this.studioRepository.save(studio);
-
         UserResponseDTO userResponse = userService.userProfile(userId);
-        return savedStudio;
+
+        return getStudioResponseDTO(savedStudio, userResponse);
     }
 
     @Transactional
-    public Studio updateStudio(StudioUpdateDTO studioUpdateDTO, UUID userId) {
-        var userModel = studioRepository.findByOwnerId(userId)
+    public StudioResponseDTO updateStudio(StudioUpdateDTO studioUpdateDTO, UUID userId) {
+        var studio = studioRepository.findByOwnerId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Estúdio não encontrado para o usuário com ID: " + userId));
 
         validateStudioUpdate(studioUpdateDTO);
 
-        var studio = userModel.getStudio();
-
         studio.setName(studioUpdateDTO.getName());
         studio.setDescription(studioUpdateDTO.getDescription());
 
-        return this.studioRepository.save(studio);
+        var updatedStudio = this.studioRepository.save(studio);
+
+        UserResponseDTO userResponse = userService.userProfile(userId);
+        return getStudioResponseDTO(updatedStudio, userResponse);
     }
 
     @Transactional
@@ -74,19 +63,25 @@ public class StudioService {
         var studio = findStudioById(studioId);
         var user = findUserById(userId);
 
+
         boolean isModerator = user.getRole().equals(UserRoleEnum.ROLE_MODERATOR);
         boolean isAdmin = user.getRole().equals(UserRoleEnum.ROLE_ADMIN);
 
         if (!(isModerator || isAdmin)) {
-            throw new AccessDeniedException("Você não tem permissão para desativar este estúdio. Apenas moderadores e administradores podem realizar esta operação.");
+            throw new ValidationException("Você não tem permissão para desativar este estúdio. Apenas moderadores e administradores podem realizar esta operação.");
         }
 
-        studio.setIsActive(false);
-        studioRepository.save(studio);
+        try {
+            studio.setIsActive(false);
+            studioRepository.save(studio);
+        } catch (Exception e) {
+            throw new ValidationException("Erro ao desativar estúdio: " + e.getMessage());
+        }
     }
 
     @Transactional
     public void deleteStudio(Long studioId, UUID userId) {
+
         var studio = findStudioById(studioId);
         var user = findUserById(userId);
 
@@ -94,7 +89,7 @@ public class StudioService {
         boolean isAdmin = user.getRole().equals(UserRoleEnum.ROLE_ADMIN);
 
         if (!(isOwner || isAdmin)) {
-            throw new AccessDeniedException("Você não tem permissão para excluir este estúdio. Apenas o proprietário ou administradores podem realizar esta operação.");
+            throw new ValidationException("Você não tem permissão para excluir este estúdio. Apenas o proprietário ou administradores podem realizar esta operação.");
         }
 
         UserModel owner = studio.getOwner();
@@ -104,10 +99,14 @@ public class StudioService {
         studioRepository.delete(studio);
     }
 
-    public Studio studioProfile(UUID userId) {
-        var userModel = studioRepository.findByOwnerId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Estúdio não encontrado para o usuário com ID: " + userId));
-        return userModel.getStudio();
+    public StudioResponseDTO studioProfile(UUID id) {
+
+        studioRepository.findByOwnerId(id)
+                .orElseThrow(() -> new ValidationException("Estúdio não encontrado"));
+
+        var studio = studioRepository.findByOwnerId(id).orElseThrow(() -> new ValidationException("Estúdio não encontrado"));
+        var userResponse = userService.userProfile(id);
+        return getStudioResponseDTO(studio, userResponse);
     }
 
     public Optional<Studio> findById(Long id) {
@@ -122,17 +121,6 @@ public class StudioService {
     private UserModel findUserById(UUID id) {
         return userService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com ID: " + id));
-    }
-
-    private void validateStudioCreation(StudioCreationDTO studioDTO) {
-        List<String> errors = new ArrayList<>();
-
-        validateStudioName(studioDTO.getName(), errors);
-        validateStudioDescription(studioDTO.getDescription(), errors);
-
-        if (!errors.isEmpty()) {
-            throw new ValidationException(String.join(", ", errors));
-        }
     }
 
     private void validateStudioUpdate(StudioUpdateDTO studioDTO) {
@@ -164,6 +152,27 @@ public class StudioService {
         } else if (description.length() > 30) {
             errors.add("Descrição do estúdio deve ter no máximo 30 caracteres");
         }
+    }
+
+    private StudioResponseDTO getStudioResponseDTO(Studio studio, UserResponseDTO userResponse) {
+        return StudioResponseDTO.builder()
+                .name(studio.getName())
+                .description(studio.getDescription())
+                .audienceReputation(studio.getAudienceReputation())
+                .criticReputation(studio.getCriticReputation())
+                .industryReputation(studio.getIndustryReputation())
+                .awardsPoints(studio.getAwardsPoints())
+                .maxSimultaneousProductions(studio.getMaxSimultaneousProductions())
+                .technologyLevel(studio.getTechnologyLevel())
+                .budget(studio.getBudget())
+                .totalRevenue(studio.getTotalRevenue())
+                .totalExpenses(studio.getTotalExpenses())
+                .weeklyOperationalCosts(studio.getWeeklyOperationalCosts())
+                .marketValue(studio.getMarketValue())
+                .createdAt(studio.getCreatedAt())
+                .updatedAt(studio.getUpdatedAt())
+                .isActive(studio.getIsActive())
+                .owner(userResponse).build();
     }
 
 }
