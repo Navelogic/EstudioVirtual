@@ -1,11 +1,9 @@
 package com.github.navelogic.api.Controller;
 
-import com.github.navelogic.api.DTO.ApiResponseDTO;
 import com.github.navelogic.api.DTO.StudioCreationDTO;
 import com.github.navelogic.api.DTO.StudioResponseDTO;
 import com.github.navelogic.api.DTO.StudioUpdateDTO;
 import com.github.navelogic.api.Exception.ValidationException;
-import com.github.navelogic.api.Model.Studio;
 import com.github.navelogic.api.Service.StudioService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
