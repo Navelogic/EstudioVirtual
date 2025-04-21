@@ -17,5 +17,8 @@ public enum GenreEnum {
     ANIMATION,
     BIOGRAPHY,
     FAMILY,
-    ANTHOLOGY
+    ANTHOLOGY,
+    THRILLER,
+    INDIE,
+    EXPERIMENTAL
 }

@@ -37,16 +37,31 @@ public class Contract {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    private BigDecimal salary;
-
-    private BigDecimal signingBonus;
-
     private Boolean isActive = true;
 
-    private Integer productionQuantity;
+    private BigDecimal baseSalary;
+    private BigDecimal signingBonus;
+    private BigDecimal royaltiesPercentage;
+    private BigDecimal minimumGuarantee;
+    private BigDecimal terminationPenalty;
 
     @Enumerated(EnumType.STRING)
     private ContractTypeEnum contractType;
+
+    private Integer minimumProductionsRequired;
+
+    private Boolean requiresExclusivity;
+    private Boolean includesImageRights;
+    private Boolean includesCreditsRequirement;
+    private Boolean includesAccommodation;
+    private Boolean includesTransportation;
+    private Boolean includesInsurance;
+    private Boolean includesPerformanceBonus;
+    private Boolean requiresStuntDouble;
+    private Boolean includesCharacterMerchandising;
+    private Boolean requiresWardrobe;
+
+
 
 
 }
