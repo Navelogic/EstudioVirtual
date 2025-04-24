@@ -25,8 +25,7 @@ public class Crew {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstName;
-    private String lastName;
+    private String name;
 
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
