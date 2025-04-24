@@ -2,6 +2,7 @@ package com.github.navelogic.api.Service.AI;
 
 import com.github.navelogic.api.Model.Studio;
 import com.github.navelogic.api.Repository.StudioRepository;
+import com.github.navelogic.api.Service.Crew.CrewService;
 import com.github.navelogic.api.Util.NameGenerationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,6 +17,7 @@ public class StudioAIService {
 
     private final StudioRepository studioRepository;
     private final NameGenerationUtil nameGenerationUtil;
+    private final CrewService crewService;
     private final Random random = new Random();
 
     @Transactional
@@ -25,6 +27,7 @@ public class StudioAIService {
             String studioName = nameGenerationUtil.generateStudioName();
             String description = nameGenerationUtil.generateStudioDescription(studioName);
 
+            crewService.generateRandomCrews();
             Studio studio = new Studio();
             studio.setName(studioName);
             studio.setDescription(description);
