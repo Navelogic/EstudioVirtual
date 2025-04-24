@@ -28,16 +28,13 @@ public class Studio {
     private String name;
     private String description;
 
-    // Reputação
     private Integer audienceReputation = 0;
     private Integer criticReputation = 0;
     private Integer industryReputation = 0;
     private Integer awardsPoints = 0;
-
     private Integer maxSimultaneousProductions = 1;
     private Integer technologyLevel = 0;
 
-    // Propriedades financeiras
     private BigDecimal budget = BigDecimal.valueOf(500000);
     private BigDecimal totalRevenue = BigDecimal.ZERO;
     private BigDecimal totalExpenses = BigDecimal.ZERO;
@@ -51,10 +48,13 @@ public class Studio {
     private LocalDate updatedAt;
 
     private Boolean isActive = true;
+    private Boolean isAiControlled = false;
 
-    // Relações com outras entidades
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
     private Set<Production> productions = new HashSet<>();
+
+    @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
+    private Set<Contract> contracts = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "user_id")
