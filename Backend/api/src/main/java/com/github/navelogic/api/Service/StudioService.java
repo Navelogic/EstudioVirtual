@@ -10,7 +10,6 @@ import com.github.navelogic.api.Model.Studio;
 import com.github.navelogic.api.Model.UserModel;
 import com.github.navelogic.api.Repository.StudioRepository;
 import com.github.navelogic.api.Repository.UserRepository;
-import com.github.navelogic.api.Service.Crew.CrewService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ public class StudioService {
     private final StudioRepository studioRepository;
     private final UserService userService;
     private final UserRepository userRepository;
-    private final CrewService crewService;
 
     @Transactional
     public StudioResponseDTO createStudio(StudioCreationDTO studioDTO, UUID userId){
@@ -41,7 +39,6 @@ public class StudioService {
         var savedStudio = this.studioRepository.save(studio);
         UserResponseDTO userResponse = userService.userProfile(userId);
 
-        crewService.generateRandomCrews();
         return getStudioResponseDTO(savedStudio, userResponse);
     }
 
