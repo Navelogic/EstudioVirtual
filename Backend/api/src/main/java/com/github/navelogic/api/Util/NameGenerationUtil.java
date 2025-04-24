@@ -11,7 +11,7 @@ public class NameGenerationUtil {
 
     private static final Random random = new Random();
 
-    private String generateStudioDescription(String studioName) {
+    public String generateStudioDescription(String studioName) {
         String[] introductions = {
                 studioName + " é um estúdio audiovisual que acredita no poder das boas histórias.",
                 "No coração da criatividade, nasce o " + studioName + ", especialista em contar histórias marcantes.",
