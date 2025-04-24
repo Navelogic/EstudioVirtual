@@ -6,11 +6,11 @@ import com.github.navelogic.api.Enum.GenreEnum;
 import com.github.navelogic.api.Enum.PersonalityTraitEnum;
 import com.github.navelogic.api.Model.Crew;
 import com.github.navelogic.api.Repository.CrewRepository;
+import com.github.navelogic.api.Util.NameGenerationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
@@ -20,7 +20,7 @@ import java.util.*;
 public class CrewService {
 
     private final CrewRepository crewRepository;
-    private final CrewGenerateNameService crewGenerateNameService;
+    private final NameGenerationUtil nameGenerationUtil;
     private final ExperienceService experienceService;
     private final SalaryService salaryService;
 
@@ -46,8 +46,7 @@ public class CrewService {
 
 
             Crew crew = Crew.builder()
-                    .firstName(crewGenerateNameService.generateFirstName(random, gender.name()))
-                    .lastName(crewGenerateNameService.generateLastName(random))
+                    .name(nameGenerationUtil.generateCrewName(gender.name()))
                     .gender(gender)
                     .role(role)
                     .specialtie(specialty)
