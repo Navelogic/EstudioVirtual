@@ -51,12 +51,6 @@ O diagrama UML do modelo de classes está disponível para consulta e comentári
 
 ---
 
-## 🎨 Paleta de Cores
-
-<img src="https://github.com/user-attachments/assets/da11d8a9-9f26-42a7-aa52-0a6ef6ce15bd" alt="EstudioVirtual Palette" />
-
----
-
 ## 🤝 Deseja Contribuir?
 
 Contribuições são muito bem-vindas! Seja com código, sugestões, ou melhorias na documentação.
